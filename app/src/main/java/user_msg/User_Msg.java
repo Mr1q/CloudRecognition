@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -12,7 +14,7 @@ import com.example.qjh.cloudrecognition.R;
 
 import Control.BaseActivity;
 
-public class User_Msg extends BaseActivity  {
+public class User_Msg extends BaseActivity implements View.OnClickListener {
     private ProgressBar msg_pro;
     private EditText U_N;
     private EditText Mail; //邮箱
@@ -26,6 +28,7 @@ public class User_Msg extends BaseActivity  {
     private Edit_All Sexs;
     private Edit_All Birthdays;
     private Edit_All Addresss;
+    private ImageView RTU;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class User_Msg extends BaseActivity  {
         Birthday = (EditText) findViewById(R.id.Birthday);
         Address = (EditText) findViewById(R.id.address);
         Msg_Source = (TextView) findViewById(R.id.Msg_Source);
+        RTU=(ImageView)findViewById(R.id.RTU);
 
         U_Ns= new Edit_All(U_N,false);
         Mails= new Edit_All(Mail,false);
@@ -52,6 +56,7 @@ public class User_Msg extends BaseActivity  {
         Sex.addTextChangedListener(Sexs);
         Address.addTextChangedListener(Addresss);
         Birthday.addTextChangedListener(Birthdays);
+        RTU.setOnClickListener(this);
     }
 
 
@@ -78,6 +83,16 @@ public class User_Msg extends BaseActivity  {
 
         }
      }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.RTU:
+                this.finish();
+                break;
+        }
+    }
 
     /**
      * 封装输入窗口
