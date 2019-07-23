@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -18,9 +19,11 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
 
 import Control.BaseActivity;
@@ -36,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     ProgressBar progressBar;
     //声明mLocationOption对象，定位参数
     AMapLocationClientOption mLocationOption;
+
+
+    LatLng latLng;
+    Button loc;
 
     //AMap是地图对象
     private AMap map;
@@ -63,12 +70,21 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.amap);
+
         User_Img=(ImageView)findViewById(R.id.User_Img);
         User_Img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, User_Msg.class);
                 startActivity(intent);
+            }
+        });
+
+        loc=(Button)findViewById(R.id.loc);
+        loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
             }
         });
 
@@ -86,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             map = mapView.getMap();      //获取地图组件
             UiSettings settings=map.getUiSettings();
             map.setLocationSource(this);  //设置定位监听
-            settings.setMyLocationButtonEnabled(true);
+            settings.setMyLocationButtonEnabled(false);
             map.setMyLocationEnabled(true);
         }
         Begin_Loc();
@@ -224,6 +240,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         if (mListener != null && amapLocation != null) {
             if (amapLocation != null   && amapLocation.getErrorCode() == 0) {
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
+                latLng=new LatLng(amapLocation.getLatitude(),amapLocation.getLongitude());
+
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode() + ": " + amapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);

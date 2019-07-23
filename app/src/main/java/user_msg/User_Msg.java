@@ -2,6 +2,9 @@ package user_msg;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -23,40 +26,66 @@ public class User_Msg extends BaseActivity implements View.OnClickListener {
     private EditText Address; //地址
     private TextView Msg_Source; //记录当前进度
 
+    private CollapsingToolbarLayout CTL;
+    private AppBarLayout appBar;
+
     private Edit_All U_Ns;
     private Edit_All Mails;
     private Edit_All Sexs;
     private Edit_All Birthdays;
     private Edit_All Addresss;
     private ImageView RTU;
-
+   private Toolbar toolbar_base;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_msg);
-        msg_pro = (ProgressBar) findViewById(R.id.msg_pro);
-        U_N = (EditText) findViewById(R.id.U_N);
-        Mail = (EditText) findViewById(R.id.Mail);
-        Sex = (EditText) findViewById(R.id.Sex);
-        Birthday = (EditText) findViewById(R.id.Birthday);
-        Address = (EditText) findViewById(R.id.address);
-        Msg_Source = (TextView) findViewById(R.id.Msg_Source);
-        RTU=(ImageView)findViewById(R.id.RTU);
+        toolbar_base=(Toolbar)findViewById(R.id.toolbar_base);
+       // toolbar_base.setTitle("我的");
+        setSupportActionBar(toolbar_base);
+        BaseActivity.Set_Window(this);
+        CTL=(CollapsingToolbarLayout)findViewById(R.id.CTL);
+        appBar=(AppBarLayout)findViewById(R.id.appbar);
+        appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset <= -200) {
+                    CTL.setTitle("个人中心");//设置标题
+                    //使用下面两个CollapsingToolbarLayout的方法设置展开透明->折叠时你想要的颜色
+                    CTL.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+                    CTL.setCollapsedTitleTextColor(getResources().getColor(R.color.colorPrimary));
 
-        U_Ns= new Edit_All(U_N,false);
-        Mails= new Edit_All(Mail,false);
-        Sexs= new Edit_All(Sex,false);
-        Birthdays= new Edit_All(Birthday,false);
-        Addresss= new Edit_All(Address,false);
+                } else {
 
+                    CTL.setTitle("");
+                }
 
-//        添加点击事件
-        U_N.addTextChangedListener(U_Ns);
-        Mail.addTextChangedListener(Mails);
-        Sex.addTextChangedListener(Sexs);
-        Address.addTextChangedListener(Addresss);
-        Birthday.addTextChangedListener(Birthdays);
-        RTU.setOnClickListener(this);
+            }
+        });
+
+//        msg_pro = (ProgressBar) findViewById(R.id.msg_pro);
+//        U_N = (EditText) findViewById(R.id.U_N);
+//        Mail = (EditText) findViewById(R.id.Mail);
+//        Sex = (EditText) findViewById(R.id.Sex);
+//        Birthday = (EditText) findViewById(R.id.Birthday);
+//        Address = (EditText) findViewById(R.id.address);
+//        Msg_Source = (TextView) findViewById(R.id.Msg_Source);
+//        RTU=(ImageView)findViewById(R.id.RTU);
+
+//        U_Ns= new Edit_All(U_N,false);
+//        Mails= new Edit_All(Mail,false);
+//        Sexs= new Edit_All(Sex,false);
+//        Birthdays= new Edit_All(Birthday,false);
+//        Addresss= new Edit_All(Address,false);
+//
+//
+////        添加点击事件
+//        U_N.addTextChangedListener(U_Ns);
+//        Mail.addTextChangedListener(Mails);
+//        Sex.addTextChangedListener(Sexs);
+//        Address.addTextChangedListener(Addresss);
+//        Birthday.addTextChangedListener(Birthdays);
+//        RTU.setOnClickListener(this);
     }
 
 
@@ -88,9 +117,9 @@ public class User_Msg extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.RTU:
-                this.finish();
-                break;
+           // case R.id.RTU:
+              //  this.finish();
+               // break;
         }
     }
 
