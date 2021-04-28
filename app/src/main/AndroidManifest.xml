@@ -31,28 +31,35 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="c7018cb8365dddfb1dfedd247d3cffe5"/>
+            android:value="c7018cb8365dddfb1dfedd247d3cffe5" />
+
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:label="@string/app_name">
+
+
+        </activity>
+        <activity android:name="com.example.qjh.cloudrecognition.Activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.example.qjh.cloudrecognition.Activity.LoginActivity">
 
         </activity>
-        <activity android:name="logins.Loading">
+        <activity android:name="com.example.qjh.cloudrecognition.Activity.RegisterActivity"></activity>
 
-        </activity>
-        <activity android:name="logins.Login"></activity>
-        <activity android:name="logins.Register"></activity>
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.example.qjh.cloudrecognition.BmobContentProvider"></provider>
         <service android:name="com.amap.api.location.APSService"></service>
-        <activity android:name="user_msg.User_Msg">
+
+        <activity android:name="com.example.qjh.cloudrecognition.user_msg.User_Msg"></activity>
+        <activity android:name="com.example.qjh.cloudrecognition.user_msg.Me_Cot">
 
         </activity>
+        <activity android:name="com.example.qjh.cloudrecognition.Control.SearchPOI"/>
     </application>
 
 
